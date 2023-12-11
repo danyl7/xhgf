@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Привет, Дедушка Мороз!</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Saytag+One&display=swap">
+    <style>
+        body {
+            font-family: 'Saytag One', sans-serif;
+            background-image: url('forest.jpg');
+            background-size: cover;
+            background-position: center;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff; /* Белый текст */
+            overflow: hidden;
+            position: relative;
+        }
+
+        #main-content {
+            text-align: center;
+            max-width: 600px;
+            margin: auto;
+            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.7); /* Полупрозрачный черный фон */
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+            position: relative;
+            z-index: 2;
+        }
+
+        h1 {
+            font-size: 48px;
+            color: #dc3545;
+            margin-bottom: 20px;
+        }
+
+        p {
+            font-size: 18px;
+            margin-bottom: 20px;
+            color: #000; /* Чёрный текст */
+        }
+
+        #letter-container {
+            width: 400px;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+            background-color: #ffffff;
+            text-align: left;
+            margin-top: 20px;
+            color: #000; /* Чёрный текст */
+        }
+
+        label {
+            display: block;
+            margin: 15px 0;
+            font-size: 16px;
+            color: #000; /* Чёрный текст */
+        }
+
+        input {
+            margin-right: 10px;
+        }
+
+        button {
+            background-color: #dc3545;
+            color: #fff;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease-in-out;
+        }
+
+        button:hover {
+            background-color: #c82333; /* Темно-красный при наведении */
+        }
+
+        #result-container {
+            margin-top: 20px;
+            font-size: 18px;
+            color: #000; /* Чёрный текст */
+        }
+
+        /* Анимированные шарики */
+        .balloon {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            opacity: 0.7;
+            animation: float 3s infinite;
+            z-index: 1;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Анимированные шарики -->
+    <!-- Генерируем шарики в зависимости от размеров экрана -->
+    <script>
+        function getRandomColor() {
+            const letters = '0123456789ABCDEF';
+            let color = '#';
+            for (let i = 0; i < 6; i++) {
+                color += letters[Math.floor(Math.random() * 16)];
+            }
+            return color;
+        }
+
+        function generateBalloons() {
+            const screenWidth = window.innerWidth;
+            const screenHeight = window.innerHeight;
+            const balloonCount = Math.round((screenWidth * screenHeight) / 10000); // 10 раз больше шариков
+
+            for (let i = 0; i < balloonCount; i++) {
+                const balloon = document.createElement('div');
+                balloon.className = 'balloon';
+                balloon.style.top = Math.random() * 100 + '%';
+                balloon.style.left = Math.random() * 100 + '%';
+                balloon.style.backgroundColor = getRandomColor();
+                document.body.appendChild(balloon);
+            }
+        }
+
+        window.onload = generateBalloons;
+        window.onresize = generateBalloons;
+    </script>
+
+    <div id="main-content">
+        <h1>Привет, Дедушка Мороз!</h1>
+
+        <div id="letter-container">
+            <p>Я хотел бы поблагодарить тебя за твою невероятную работу каждый год. Твоя магия делает праздники особенными для всех нас. И в этом году я снова с нетерпением жду чудесного волшебства под ёлочкой.</p>
+            <p>Мне было бы очень приятно получить подарок от тебя. Я даже выбрал несколько вариантов, из которых ты можешь выбрать:</p>
+
+            <label>
+                <input type="radio" name="gift" value="2 плашки оперативной памяти"> 2 плашки оперативной памяти
+            </label>
+
+            <label>
+                <input type="radio" name="gift" value="Новые наушники с мышкой"> Новые наушники с мышкой
+            </label>
+
+            <label>
+                <input type="radio" name="gift" value="Деньги (не желательно)"> Деньги (не желательно)
+            </label>
+
+            <p>Буду ждать с нетерпением ответа и с удовольствием принимать подарок, который ты выберешь для меня. Ты великолепен!</p>
+
+            <button onclick="displayResult()">Спасибо</button>
+        </div>
+
+        <div id="result-container"></div>
+    </div>
+
+    <script>
+        function displayResult() {
+            var selectedGift = document.querySelector('input[name="gift"]:checked');
+            var resultContainer = document.getElementById('result-container');
+
+            if (selectedGift) {
+                resultContainer.innerHTML = `
+                    <p>Спасибо за твой выбор, Дедушка Мороз!</p>
+                `;
+            } else {
+                resultContainer.innerHTML = '<p>Пожалуйста, выберите подарок!</p>';
+            }
+        }
+    </script>
+</body>
+</html>
